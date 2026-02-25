@@ -1,0 +1,439 @@
+# BrandScript Template (Donald Miller / StoryBrand 7-Part Framework)
+# For clarifying brand message so customers can't ignore you
+# Template version: 1.0
+
+metadata:
+  template_name: "StoryBrand BrandScript"
+  author: "Donald Miller / genius-robsonmelo-squad"
+  based_on: "Building a StoryBrand (Donald Miller, 2017)"
+  target_use: "Website copy, pitch decks, elevator pitches, all marketing"
+  principle: "Make the customer the hero, not your brand"
+
+# =================================================================
+# CORE PRINCIPLE
+# =================================================================
+core_principle: |
+  YOUR BRAND IS THE GUIDE (like Yoda), not the hero.
+  YOUR CUSTOMER IS THE HERO (like Luke Skywalker).
+
+  Every great story has:
+  1. A character (customer) who wants something
+  2. Encounters a problem
+  3. Meets a guide (your brand) who has a plan
+  4. And calls them to action
+  5. That results in success
+  6. And helps them avoid failure
+
+  If you confuse, you lose. Clarity wins.
+
+# =================================================================
+# PART 1: CHARACTER (Who is your customer?)
+# =================================================================
+part_1_character:
+  title: "A CHARACTER"
+  question: "Who is your customer & what do they want?"
+  guidance: "Be specific. One person, one desire."
+  critical: "They want something SPECIFIC, not vague"
+
+  template:
+    customer_description: "{WHO THEY ARE}"
+    what_they_want: "{ONE SPECIFIC THING}"
+    survival_need: "{WHICH SURVIVAL NEED DOES THIS RELATE TO?}"
+
+  survival_needs:
+    - "Conserve resources (time, money, energy)"
+    - "Build networks (relationships, tribe)"
+    - "Gain status (respect, authority, positioning)"
+    - "Accumulate resources (money, assets)"
+    - "Make meaning (purpose, legacy)"
+
+  example:
+    customer_description: "Expert consultant with valuable insights"
+    what_they_want: "To transform their invisible pattern recognition into a proprietary method that commands premium fees"
+    survival_need: "Gain status (recognized authority) + Accumulate resources (R$20K+ per client)"
+
+  bad_examples:
+    - "Everyone who needs consulting" (too broad)
+    - "To be successful" (too vague)
+    - "To grow their business" (too generic)
+
+  good_examples:
+    - "First-time home buyers who want to avoid costly mistakes"
+    - "Overwhelmed entrepreneurs who want to systemize their operations"
+    - "Experts who want to package their insights as high-ticket methods"
+
+# =================================================================
+# PART 2: HAS A PROBLEM
+# =================================================================
+part_2_problem:
+  title: "HAS A PROBLEM"
+  question: "What 3-level problem does the character face?"
+  structure: "External → Internal → Philosophical (all 3 required)"
+  critical: "Most brands only address external. You must address all 3."
+
+  external_problem:
+    definition: "The tangible, observable problem"
+    question: "What physical obstacle do they face?"
+    template: "{WHAT'S NOT WORKING IN THEIR WORLD}"
+    example: "Competing on price, no differentiation from competitors, proposals get shopped"
+
+  internal_problem:
+    definition: "The frustration or doubt the external problem causes"
+    question: "How does the external problem make them feel?"
+    template: "They feel {EMOTION} because {REASON}"
+    example: "They feel frustrated and undervalued because their deep expertise is commoditized"
+
+  philosophical_problem:
+    definition: "The 'why this is wrong' bigger issue"
+    question: "What's the injustice? What 'should' be true?"
+    template: "{WHAT SHOULD BE TRUE} but {WHAT'S ACTUALLY TRUE}"
+    example: "True expertise should command premium compensation, but the market treats all consultants as interchangeable"
+
+  bad_examples:
+    - "They need better marketing" (too shallow, only external)
+    - "They're not making enough money" (symptom, not root problem)
+
+  good_examples:
+    external: "Sales funnel isn't converting"
+    internal: "Feel like they're bad at sales, losing confidence"
+    philosophical: "Their hard work should pay off, but the system seems rigged"
+
+# =================================================================
+# PART 3: AND MEETS A GUIDE
+# =================================================================
+part_3_guide:
+  title: "AND MEETS A GUIDE"
+  question: "Why should they trust you? (Empathy + Authority)"
+  structure: "Empathy first, then authority"
+  critical: "Guide doesn't steal the show - helps hero win"
+
+  empathy:
+    definition: "You understand their problem"
+    question: "How do you show you get it?"
+    template: "I understand {THEIR PROBLEM}..."
+    examples:
+      - "I understand how frustrating it is to have valuable insights but no way to articulate them"
+      - "I know what it's like to compete on price when you know you're worth more"
+      - "I've seen brilliant consultants stay stuck because they can't package their genius"
+
+  authority:
+    definition: "You have successfully solved this before"
+    question: "What proof do you have?"
+    elements:
+      - "Testimonials (social proof)"
+      - "Statistics (X clients, Y results)"
+      - "Awards or credentials"
+      - "Case studies"
+      - "Years of experience"
+    template: "I've helped {NUMBER} {WHO} achieve {RESULT}"
+    examples:
+      - "I've helped 47 consultants transform their expertise into R$20K+ methods"
+      - "My clients close 5x more deals after repositioning as method creators"
+      - "Creator of The Pattern Codification Framework™ (used by 200+ experts)"
+
+  your_brandscript:
+    empathy: "{YOUR EMPATHY STATEMENT}"
+    authority: "{YOUR AUTHORITY PROOF}"
+
+  example:
+    empathy: "I understand the frustration of having breakthrough insights that clients can't understand or value. I've been there—knowing you see patterns others miss but struggling to articulate that value in a way that justifies premium pricing."
+    authority: "I created The Method Codification Framework™ after studying 50+ elite minds who successfully productized their expertise. My clients consistently achieve 3-5x pricing increases within 90 days of implementing this system."
+
+# =================================================================
+# PART 4: WHO GIVES THEM A PLAN
+# =================================================================
+part_4_plan:
+  title: "WHO GIVES THEM A PLAN"
+  question: "What's the simple 3-step process?"
+  principle: "Customers need clarity on how to do business with you"
+  structure: "3 steps maximum (or 4 if absolutely necessary)"
+  critical: "Make it dead simple. Confusion = lost sale."
+
+  types_of_plans:
+    process_plan:
+      definition: "Steps to work with you"
+      example: "1. Book discovery call, 2. Get custom plan, 3. Transform your method"
+
+    agreement_plan:
+      definition: "Commitments that ease fears"
+      example: "1. No free pitching, 2. Value-based pricing, 3. Guaranteed results"
+
+  template:
+    step_1: "{EASY FIRST STEP}"
+    step_2: "{VALUABLE MIDDLE STEP}"
+    step_3: "{TRANSFORMATION ACHIEVED}"
+
+  example_process_plan:
+    step_1: "Identify Your Pattern - We discover the invisible insight you see"
+    step_2: "Codify Your Method - We transform it into a proprietary framework"
+    step_3: "Land Your Clients - We help you close R$20K+ deals using your method"
+
+  example_agreement_plan:
+    step_1: "No Free Work - We never pitch or give away thinking"
+    step_2: "Value-Based Pricing - You'll charge what you're worth, not hours"
+    step_3: "Guaranteed Results - If you don't have a method by Day 90, full refund"
+
+  your_plan:
+    step_1: "{YOUR STEP 1}"
+    step_2: "{YOUR STEP 2}"
+    step_3: "{YOUR STEP 3}"
+
+  bad_examples:
+    - "We do a bunch of stuff and then magic happens" (too vague)
+    - "1. Discovery, 2. Analysis, 3. Strategy, 4. Implementation, 5. Optimization" (too many steps)
+
+# =================================================================
+# PART 5: AND CALLS THEM TO ACTION
+# =================================================================
+part_5_call_to_action:
+  title: "AND CALLS THEM TO ACTION"
+  question: "What are your direct and transitional CTAs?"
+  structure: "2 CTAs required: Direct (buy now) + Transitional (learn more)"
+  critical: "If you don't ask, they won't act. Be bold."
+
+  direct_cta:
+    definition: "The buy now / let's go / commit action"
+    principle: "Should appear multiple times on website/materials"
+    examples:
+      - "Apply for 90-Day Method Acceleration"
+      - "Book Your Strategy Session"
+      - "Start Your Transformation Today"
+      - "Reserve Your Spot (Limited to 5 clients)"
+    your_direct_cta: "{YOUR DIRECT CTA}"
+
+  transitional_cta:
+    definition: "The low-commitment first step for those not ready to buy"
+    purpose: "Enter funnel, build trust, nurture relationship"
+    types:
+      - "Free PDF download"
+      - "Webinar registration"
+      - "Email course signup"
+      - "Assessment/quiz"
+      - "Free consultation"
+    examples:
+      - "Download: The Method Codification Checklist"
+      - "Take the Quiz: Is Your Expertise Method-Ready?"
+      - "Watch: How to Price Your Invisible Insights"
+      - "Get: 5 Patterns That Command Premium Fees (Free Guide)"
+    your_transitional_cta: "{YOUR TRANSITIONAL CTA}"
+
+  placement:
+    direct_cta:
+      - "Hero section of website"
+      - "End of pitch deck"
+      - "End of email sequence"
+      - "Footer of every page"
+    transitional_cta:
+      - "Popup on website"
+      - "Sidebar of blog posts"
+      - "Social media bio link"
+      - "Email signature"
+
+  example:
+    direct_cta: "Apply for Method Acceleration Program"
+    transitional_cta: "Download: The 3-Question Method Readiness Assessment"
+
+# =================================================================
+# PART 6: THAT HELPS THEM AVOID FAILURE
+# =================================================================
+part_6_failure:
+  title: "THAT HELPS THEM AVOID FAILURE"
+  question: "What's at stake? What happens if they don't act?"
+  principle: "Loss aversion is 2x stronger than gain motivation"
+  critical: "Don't overdo it. Tasteful stakes, not fear-mongering."
+  frequency: "Mention 2-3 times max (hero, early web copy, email #3)"
+
+  template:
+    specific_failure: "{WHAT BAD THING HAPPENS}"
+    broader_consequence: "{BIGGER IMPLICATION}"
+    emotional_cost: "{HOW IT FEELS}"
+
+  example:
+    specific_failure: "Continue competing on price with no differentiation"
+    broader_consequence: "Stuck in Excellence zone forever—busy but never wealthy"
+    emotional_cost: "The frustration of knowing you're worth more but never proving it"
+
+  bad_examples:
+    - "You'll fail at everything" (too dramatic)
+    - "You might not succeed" (too weak)
+    - "Your competitors will win" (comparison, not stakes)
+
+  good_examples:
+    - "Your best insights will die with you, never packaged or monetized"
+    - "You'll work harder for less money while lesser experts charge more"
+    - "You'll retire without the legacy of a method that bears your name"
+
+  your_failure:
+    what_they_avoid: "{SPECIFIC FAILURE THEY AVOID}"
+
+  usage_note: "Use sparingly. Mention in hero section, maybe one email, but don't hammer. Success (Part 7) is more important."
+
+# =================================================================
+# PART 7: AND ENDS IN SUCCESS
+# =================================================================
+part_7_success:
+  title: "AND ENDS IN SUCCESS"
+  question: "What does their life look like after working with you?"
+  principle: "Paint the picture. Make them feel it."
+  structure: "3 levels of success"
+  critical: "This is your vision. Make it compelling."
+
+  levels_of_success:
+    level_1_external:
+      definition: "Tangible, observable results"
+      question: "What measurably changes?"
+      example: "R$100K/month revenue from 5 clients @ R$20K each"
+
+    level_2_internal:
+      definition: "How they feel"
+      question: "What emotional transformation?"
+      example: "Confidence to send R$20K proposals without hesitation"
+
+    level_3_status:
+      definition: "How others see them"
+      question: "What's their new identity/positioning?"
+      example: "Recognized as the creator of [METHOD NAME]™, not a commodity consultant"
+
+  template:
+    external_success: "{TANGIBLE RESULTS}"
+    internal_success: "{HOW THEY FEEL}"
+    status_success: "{HOW THEY'RE SEEN}"
+
+  example:
+    external_success: |
+      You have a proprietary method with your name on it, documented and
+      ready to sell. You're closing R$20K+ clients consistently. Your
+      calendar has 5 active transformations running simultaneously. You've
+      achieved R$100K/month doing work that energizes you.
+
+    internal_success: |
+      You wake up in flow state daily, not 1-3x/month. No more analytical
+      work for others that drains you. You feel confident, valued, and
+      finally compensated for your true genius. The Upper Limit Problem
+      no longer controls you.
+
+    status_success: |
+      You're known as THE creator of [METHOD NAME]. When people in your
+      niche have this problem, they think of YOU first. You're no longer
+      one of many consultants—you're the recognized authority with the
+      only documented solution.
+
+  your_success:
+    what_they_achieve: "{THEIR SUCCESS STATE}"
+
+  bad_examples:
+    - "You'll be successful" (too vague)
+    - "You'll make money" (only external, no emotion/status)
+
+  good_examples:
+    - "You'll have a method that outlives you, creating a legacy"
+    - "Your genius finally matches your income—R$20K per client, every time"
+    - "You're the go-to expert, not a commodity competing on price"
+
+# =================================================================
+# PUTTING IT ALL TOGETHER: ONE-LINER
+# =================================================================
+one_liner:
+  definition: "Complete BrandScript in 1 sentence"
+  formula: "We help {CHARACTER} solve {PROBLEM} so they can {SUCCESS}"
+  usage: "Everywhere - LinkedIn bio, business cards, elevator pitch, intro"
+
+  template: "We help {CHARACTER} overcome {PROBLEM} so they can {SUCCESS}."
+
+  example: "We help expert consultants transform their invisible insights into proprietary methods that command R$20K+ per client."
+
+  your_one_liner: "{YOUR ONE-LINER}"
+
+# =================================================================
+# APPLYING YOUR BRANDSCRIPT
+# =================================================================
+application_guide:
+  website_hero_section:
+    headline: "{WHAT THEY WANT} (Part 1)"
+    subheadline: "{HOW YOU HELP THEM GET IT}"
+    cta_button: "{DIRECT CTA} (Part 5)"
+
+  website_sections:
+    section_1_problem: "Address the 3-level problem (Part 2)"
+    section_2_plan: "Show your 3-step plan (Part 4)"
+    section_3_success: "Paint success picture (Part 7)"
+    section_4_guide: "Build trust (empathy + authority) (Part 3)"
+    section_5_avoid_failure: "Stakes (what they avoid) (Part 6)"
+    section_6_final_cta: "Repeat direct + transitional CTA (Part 5)"
+
+  pitch_deck:
+    slide_1: "Title + One-liner"
+    slide_2: "The Problem (3 levels)"
+    slide_3: "Why It Matters (Failure stakes)"
+    slide_4: "The Solution (Your method overview)"
+    slide_5: "The Plan (3 steps)"
+    slide_6: "Proof (Authority - case studies, testimonials)"
+    slide_7: "Success (What they'll achieve)"
+    slide_8: "Investment (Pricing options)"
+    slide_9: "CTA (Next steps)"
+
+  elevator_pitch:
+    formula: "You know how {CHARACTER} struggles with {PROBLEM}? Well, we {PLAN} so they can {SUCCESS}."
+    example: "You know how expert consultants have valuable insights but can't charge premium fees? Well, we help them codify those insights into proprietary methods so they can close R$20K+ clients consistently."
+
+# =================================================================
+# BRANDSCRIPT CHECKLIST
+# =================================================================
+checklist:
+  - question: "Is my customer the hero (not me)?"
+    pass: "Customer is Luke, I'm Yoda"
+    fail: "I'm talking about how great I am"
+
+  - question: "Did I address all 3 problem levels?"
+    pass: "External, internal, AND philosophical"
+    fail: "Only external problem mentioned"
+
+  - question: "Is my plan 3 steps or fewer?"
+    pass: "3 clear, simple steps"
+    fail: "5+ steps or vague process"
+
+  - question: "Do I have both CTAs?"
+    pass: "Direct (buy) + transitional (learn more)"
+    fail: "No CTA or only one type"
+
+  - question: "Is success painted vividly?"
+    pass: "Can see, feel, and imagine the transformation"
+    fail: "Generic 'you'll be successful'"
+
+  - question: "Did I clarify (not confuse)?"
+    pass: "10-year-old could understand"
+    fail: "Industry jargon, complex language"
+
+# =================================================================
+# USAGE NOTES
+# =================================================================
+usage_notes: |
+  CRITICAL PRINCIPLES:
+  1. Customer = Hero. You = Guide. Never reverse this.
+  2. Clarity over cleverness. Simple over sophisticated.
+  3. If you confuse, you lose. Test on someone unfamiliar with your work.
+  4. Address all 3 problem levels (most brands miss internal + philosophical)
+  5. Call to action BOLDLY. Don't be shy. Ask for the sale.
+
+  WHERE TO USE BRANDSCRIPT:
+  • Website homepage (entire structure)
+  • Pitch deck (slides mirror 7 parts)
+  • Sales emails (one email per part)
+  • LinkedIn About section (condensed)
+  • Elevator pitch (one-liner formula)
+  • Proposal intro (situation appraisal)
+
+  COMMON MISTAKES:
+  • Making yourself the hero (customer is hero!)
+  • Only addressing external problem
+  • No clear call to action
+  • Too many steps in plan (>3 is too many)
+  • Vague success (paint the picture!)
+
+  SUCCESS INDICATORS:
+  • Someone unfamiliar can explain what you do after reading once
+  • You can pitch confidently using the one-liner
+  • Website bounce rate decreases
+  • More inquiries asking specifically about your method
+
+# END OF TEMPLATE

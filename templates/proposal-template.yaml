@@ -1,0 +1,533 @@
+# 9-Part Proposal Template (Alan Weiss Structure)
+# For high-ticket method offers (R$150K-R$350K)
+# Template version: 1.0
+
+metadata:
+  template_name: "9-Part Value-Based Proposal"
+  author: "Alan Weiss / genius-robsonmelo-squad"
+  target_use: "High-ticket method offers"
+  typical_length: "2-3 pages maximum"
+  success_rate: "60-80% close rate when value conversation precedes proposal"
+
+# =================================================================
+# INSTRUCTIONS
+# =================================================================
+instructions: |
+  1. Complete value conversation FIRST (use value-conversation-template.md)
+  2. Populate this template with CLIENT'S language from that conversation
+  3. Keep total length to 2-3 pages (not more!)
+  4. Fees appear AFTER value is established (Part 5)
+  5. Always offer "choice of yeses" (3 options minimum)
+  6. Send as PDF + schedule follow-up call 3 days later
+
+# =================================================================
+# PART 1: SITUATION APPRAISAL (3 sentences max)
+# =================================================================
+part_1_situation_appraisal:
+  title: "Current Situation"
+  max_length: "3 sentences"
+  guidance: "Summarize their current state, pain points, and opportunity"
+
+  template: |
+    {CLIENT_COMPANY} is currently {CURRENT_STATE}. The primary challenge
+    is {PRIMARY_PAIN_POINT}, which is resulting in {NEGATIVE_CONSEQUENCE}.
+    This represents an opportunity to {TRANSFORMATION_OPPORTUNITY}.
+
+  example: |
+    Acme Consulting is currently positioned as a generalist provider in
+    a crowded marketplace. The primary challenge is the inability to
+    articulate unique value, which results in price-based competition
+    and commoditization. This represents an opportunity to transform
+    pattern recognition into a proprietary method that commands
+    premium positioning.
+
+# =================================================================
+# PART 2: OBJECTIVES (3-5 bullet points)
+# =================================================================
+part_2_objectives:
+  title: "Objectives"
+  format: "Bullet list"
+  max_bullets: 5
+  guidance: "What will change? Use measurable, observable outcomes from value conversation"
+
+  template: |
+    • {OBJECTIVE_1} - {MEASURABLE_OUTCOME_1}
+    • {OBJECTIVE_2} - {MEASURABLE_OUTCOME_2}
+    • {OBJECTIVE_3} - {MEASURABLE_OUTCOME_3}
+    • {OBJECTIVE_4} - {MEASURABLE_OUTCOME_4} (optional)
+    • {OBJECTIVE_5} - {MEASURABLE_OUTCOME_5} (optional)
+
+  example: |
+    • Codify proprietary method with unique name and documented framework
+    • Create Grand Slam Offer priced at R$20K+ with clear differentiation
+    • Position as expert (not vendor) through value-based conversations
+    • Generate pipeline of 5 qualified opportunities within 90 days
+    • Close first 3 clients at R$20K each to validate method and business model
+
+# =================================================================
+# PART 3: METRICS (How success will be measured)
+# =================================================================
+part_3_metrics:
+  title: "Success Metrics"
+  guidance: "Use KPIs THEY stated in value conversation"
+
+  template: |
+    Success will be measured by the following key performance indicators:
+
+    QUANTITATIVE:
+    • {METRIC_1}: Baseline {BASELINE_VALUE} → Target {TARGET_VALUE}
+    • {METRIC_2}: Baseline {BASELINE_VALUE} → Target {TARGET_VALUE}
+    • {METRIC_3}: Baseline {BASELINE_VALUE} → Target {TARGET_VALUE}
+
+    QUALITATIVE:
+    • {QUAL_METRIC_1}: {BEFORE_STATE} → {AFTER_STATE}
+    • {QUAL_METRIC_2}: {BEFORE_STATE} → {AFTER_STATE}
+
+    ROI CALCULATION:
+    • Value created: {TOTAL_VALUE}
+    • Investment: {FEE_AMOUNT}
+    • ROI: {ROI_MULTIPLE}:1
+
+  example: |
+    Success will be measured by the following key performance indicators:
+
+    QUANTITATIVE:
+    • Revenue per client: Baseline R$8K → Target R$20K (150% increase)
+    • Monthly revenue: Baseline R$32K → Target R$100K (213% increase)
+    • Proposals sent: Baseline 2/month → Target 5/month (150% increase)
+
+    QUALITATIVE:
+    • Positioning: Commodity consultant → Recognized method creator
+    • Confidence: Hesitant pricing → Bold R$20K+ proposals
+
+    ROI CALCULATION:
+    • Value created: R$816K annually (R$68K/month increase × 12)
+    • Investment: R$200K
+    • ROI: 4:1 first year, 10:1+ over 3 years
+
+# =================================================================
+# PART 4: VALUE (Impact in client's terms)
+# =================================================================
+part_4_value:
+  title: "Value & Impact"
+  critical: "THIS COMES BEFORE FEES - Client must see value first"
+  guidance: "Use value calculation from value conversation"
+
+  template: |
+    The transformation we've outlined will create the following value for
+    {CLIENT_COMPANY}:
+
+    TANGIBLE OUTCOMES ({TIMEFRAME}):
+    • {TANGIBLE_1}: {VALUE_AMOUNT}
+    • {TANGIBLE_2}: {VALUE_AMOUNT}
+    • {TANGIBLE_3}: {VALUE_AMOUNT}
+    Subtotal tangible: {TANGIBLE_TOTAL}
+
+    INTANGIBLE OUTCOMES:
+    • {INTANGIBLE_1}: {EQUIVALENT_VALUE}
+    • {INTANGIBLE_2}: {EQUIVALENT_VALUE}
+    Subtotal intangible: {INTANGIBLE_TOTAL}
+
+    PERIPHERAL BENEFITS:
+    • {PERIPHERAL_1}: {VALUE}
+    • {PERIPHERAL_2}: {VALUE}
+    Subtotal peripheral: {PERIPHERAL_TOTAL}
+
+    TOTAL VALUE CREATED: {TOTAL_VALUE}
+
+    This represents {ROI_DESCRIPTION} for {CLIENT_COMPANY}.
+
+  example: |
+    The transformation we've outlined will create the following value for
+    Acme Consulting:
+
+    TANGIBLE OUTCOMES (12 months):
+    • Revenue increase (5 clients @ R$20K vs. current R$8K): R$720K
+    • Time saved (systematized delivery): R$60K equivalent
+    • Reduced client acquisition cost: R$36K
+    Subtotal tangible: R$816K
+
+    INTANGIBLE OUTCOMES:
+    • Market positioning as method creator: R$150K equivalent
+    • Team confidence and morale improvement: R$50K equivalent
+    Subtotal intangible: R$200K
+
+    PERIPHERAL BENEFITS:
+    • Repeatable sales process (future value): R$100K
+    • Referral network activation: R$80K
+    Subtotal peripheral: R$180K
+
+    TOTAL VALUE CREATED: R$1,196,000 over 12 months
+
+    This represents a minimum 6:1 ROI in year one, with compounding
+    value in subsequent years as the method scales.
+
+# =================================================================
+# PART 5: METHODOLOGY & OPTIONS
+# =================================================================
+part_5_methodology_and_options:
+  title: "Methodology & Investment Options"
+  structure: "Brief method description + 3 escalating options"
+  psychology: "60% choose Option 2, 30% choose Option 3, 10% choose Option 1"
+
+  methodology_description:
+    guidance: "Brief overview of YOUR method (2-3 paragraphs)"
+    template: |
+      {METHOD_NAME} is a {DURATION}-day transformation process that
+      {UNIQUE_MECHANISM}.
+
+      Unlike {GENERIC_APPROACH}, {METHOD_NAME} works because
+      {WHY_IT_WORKS}.
+
+      The process follows {NUMBER} key phases: {PHASE_LIST}.
+
+  option_1_core:
+    label: "OPTION 1: CORE"
+    typical_price_range: "R$150K-R$180K"
+    psychology: "Establishes baseline value"
+
+    template: |
+      OPTION 1: CORE - {PRICE}
+
+      Core deliverables:
+      • {CORE_DELIVERABLE_1}
+      • {CORE_DELIVERABLE_2}
+      • {CORE_DELIVERABLE_3}
+      • {CORE_DELIVERABLE_4}
+
+      Support level:
+      • {SUPPORT_TYPE}
+
+      Timeline: {DURATION}
+
+    example: |
+      OPTION 1: CORE - R$180,000
+
+      Core deliverables:
+      • Method codification with proprietary name and framework
+      • Grand Slam Offer design (R$20K+ positioning)
+      • Value-based pricing structure (3-tier options)
+      • Sales deck and positioning materials
+
+      Support level:
+      • Email support (48-hour response time)
+
+      Timeline: 90 days
+
+  option_2_accelerated:
+    label: "OPTION 2: ACCELERATED [MOST POPULAR]"
+    typical_price_range: "R$200K-R$250K"
+    psychology: "Preferred choice - more value, reasonable price increase"
+
+    template: |
+      OPTION 2: ACCELERATED - {PRICE} [MOST POPULAR]
+
+      Everything in CORE, plus:
+      • {ENHANCED_DELIVERABLE_1}
+      • {ENHANCED_DELIVERABLE_2}
+      • {ENHANCED_DELIVERABLE_3}
+
+      Enhanced support:
+      • {ENHANCED_SUPPORT}
+
+      Additional bonuses:
+      • {BONUS_1} ({VALUE})
+      • {BONUS_2} ({VALUE})
+
+      Timeline: {DURATION}
+
+    example: |
+      OPTION 2: ACCELERATED - R$250,000 [MOST POPULAR]
+
+      Everything in CORE, plus:
+      • Weekly 1:1 implementation calls (12 sessions)
+      • Unlimited proposal reviews and feedback
+      • First client guarantee (support until first close)
+      • Delivery systemization framework
+
+      Enhanced support:
+      • Priority Slack access (same-day response)
+
+      Additional bonuses:
+      • Profit First Quick Setup Guide (R$2,500 value)
+      • 90-Day Accountability System (R$3,000 value)
+
+      Timeline: 90 days with 30-day post-program support
+
+  option_3_premium:
+    label: "OPTION 3: PREMIUM"
+    typical_price_range: "R$280K-R$350K"
+    psychology: "Anchors high value, 30% choose this"
+
+    template: |
+      OPTION 3: PREMIUM - {PRICE}
+
+      Everything in ACCELERATED, plus:
+      • {PREMIUM_DELIVERABLE_1}
+      • {PREMIUM_DELIVERABLE_2}
+      • {PREMIUM_DELIVERABLE_3}
+
+      Comprehensive support:
+      • {PREMIUM_SUPPORT}
+
+      Exclusive access:
+      • {EXCLUSIVE_1}
+      • {EXCLUSIVE_2}
+
+      Timeline: {DURATION}
+
+    example: |
+      OPTION 3: PREMIUM - R$350,000
+
+      Everything in ACCELERATED, plus:
+      • Done-WITH-you delivery systemization (full ops manual)
+      • 6-month advisory retainer (2 calls/month post-program)
+      • Quarterly method optimization sessions
+      • Team training session (for future hires)
+
+      Comprehensive support:
+      • Private Slack channel with 4-hour response time
+
+      Exclusive access:
+      • Quarterly genius zone mastermind (peer group of 5-7 method creators)
+      • Co-marketing opportunities (joint webinars, case study features)
+
+      Timeline: 90 days + 6 months advisory
+
+# =================================================================
+# PART 6: TIMING (Project duration & milestones)
+# =================================================================
+part_6_timing:
+  title: "Timeline & Milestones"
+  guidance: "Provide clarity on when things happen"
+
+  template: |
+    PROJECT DURATION: {TOTAL_DURATION}
+
+    KEY MILESTONES:
+
+    Phase 1: {PHASE_1_NAME} (Days {START}-{END})
+    • {MILESTONE_1}
+    • {MILESTONE_2}
+
+    Phase 2: {PHASE_2_NAME} (Days {START}-{END})
+    • {MILESTONE_3}
+    • {MILESTONE_4}
+
+    Phase 3: {PHASE_3_NAME} (Days {START}-{END})
+    • {MILESTONE_5}
+    • {MILESTONE_6}
+
+    FINAL DELIVERY: Day {END_DAY}
+
+  example: |
+    PROJECT DURATION: 90 days
+
+    KEY MILESTONES:
+
+    Phase 1: Codification (Days 1-30)
+    • Method codified with proprietary name (Day 7)
+    • Sales deck created (Day 14)
+    • First 5 proposals sent (Day 21)
+    • First client closed (Day 30)
+
+    Phase 2: Validation (Days 31-60)
+    • First client transformation delivered (Day 45)
+    • Case study documented (Day 50)
+    • Method refined based on feedback (Day 55)
+    • 2-3 additional clients closed (Day 60)
+
+    Phase 3: Scale (Days 61-90)
+    • Formal method launch (Day 70)
+    • Lead magnet + diagnostic offer live (Day 75)
+    • Pipeline of 5 clients established (Day 85)
+    • R$100K/month revenue achieved (Day 90)
+
+    FINAL DELIVERY: Day 90 with 30-day post-program support (Option 2+)
+
+# =================================================================
+# PART 7: JOINT ACCOUNTABILITIES
+# =================================================================
+part_7_joint_accountabilities:
+  title: "Joint Accountabilities"
+  guidance: "Clarify what each party provides"
+
+  template: |
+    ROBSON MELO / {YOUR_COMPANY} PROVIDES:
+    • {YOUR_RESPONSIBILITY_1}
+    • {YOUR_RESPONSIBILITY_2}
+    • {YOUR_RESPONSIBILITY_3}
+    • {YOUR_RESPONSIBILITY_4}
+
+    {CLIENT_COMPANY} PROVIDES:
+    • {CLIENT_RESPONSIBILITY_1}
+    • {CLIENT_RESPONSIBILITY_2}
+    • {CLIENT_RESPONSIBILITY_3}
+    • {CLIENT_RESPONSIBILITY_4}
+
+    SUCCESS REQUIRES MUTUAL COMMITMENT TO THESE ACCOUNTABILITIES.
+
+  example: |
+    ROBSON MELO / GENIUS METHODS PROVIDES:
+    • Complete method codification framework and process
+    • Weekly implementation sessions and progress reviews
+    • Expert guidance on positioning, pricing, and value conversations
+    • All templates, tools, and resources specified in selected option
+    • Availability for scheduled calls and agreed-upon support channels
+
+    ACME CONSULTING PROVIDES:
+    • Active participation in all scheduled sessions (not delegated)
+    • Completion of homework/assignments between sessions
+    • Honest feedback and communication throughout process
+    • Implementation of recommended strategies and tactics
+    • Willingness to invest 4-8 hours per week in program activities
+    • Payment per agreed schedule
+
+    SUCCESS REQUIRES MUTUAL COMMITMENT TO THESE ACCOUNTABILITIES.
+
+# =================================================================
+# PART 8: TERMS & CONDITIONS
+# =================================================================
+part_8_terms_and_conditions:
+  title: "Terms & Conditions"
+  guidance: "Legal/admin boilerplate - keep brief"
+
+  template: |
+    PAYMENT TERMS:
+    • Option selected: {SELECTED_OPTION}
+    • Total investment: {TOTAL_AMOUNT}
+    • Payment schedule: {PAYMENT_SCHEDULE}
+
+    GUARANTEE:
+    {GUARANTEE_TEXT}
+
+    INTELLECTUAL PROPERTY:
+    • Method created remains your intellectual property
+    • All frameworks, templates, and materials provided are for your use
+    • Confidentiality maintained on both sides
+
+    CANCELLATION:
+    {CANCELLATION_POLICY}
+
+    GOVERNING LAW:
+    This agreement is governed by the laws of {JURISDICTION}.
+
+  example: |
+    PAYMENT TERMS:
+    • Option selected: [To be confirmed]
+    • Total investment: [Per option selected]
+    • Payment schedule: 50% upon signing, 50% at Day 30 milestone
+
+    GUARANTEE:
+    If after 90 days you don't have (1) documented method with proprietary
+    name, (2) offer priced R$15K+, and (3) at least ONE proposal sent to
+    a qualified prospect, we will refund 100% of your investment.
+
+    INTELLECTUAL PROPERTY:
+    • Method created becomes your proprietary intellectual property
+    • All frameworks, templates, and materials provided are for your
+      exclusive use and may not be resold
+    • Confidentiality maintained on both sides per standard NDA
+
+    CANCELLATION:
+    Either party may cancel with 30 days written notice. Refund per
+    guarantee terms above. Work completed to date is non-refundable
+    beyond guarantee coverage.
+
+    GOVERNING LAW:
+    This agreement is governed by the laws of Brazil (São Paulo).
+
+# =================================================================
+# PART 9: ACCEPTANCE
+# =================================================================
+part_9_acceptance:
+  title: "Acceptance & Next Steps"
+  guidance: "Make it easy to say yes"
+
+  template: |
+    READY TO PROCEED?
+
+    To accept this proposal and begin {METHOD_NAME} transformation:
+
+    1. Select your preferred option (1, 2, or 3)
+    2. Sign below and return via email to {YOUR_EMAIL}
+    3. Submit initial payment per payment schedule
+    4. We'll schedule kickoff call within 48 hours
+
+    OPTION SELECTED: ____ (1 / 2 / 3)
+
+    CLIENT SIGNATURE: _________________________
+
+    PRINTED NAME: _________________________
+
+    DATE: _________________________
+
+
+    Questions? Let's discuss on our scheduled follow-up call on
+    {FOLLOW_UP_CALL_DATE} at {TIME}.
+
+    I look forward to partnering with you on this transformation.
+
+    {YOUR_SIGNATURE}
+    {YOUR_NAME}
+    {YOUR_TITLE}
+    {YOUR_COMPANY}
+    {YOUR_EMAIL}
+    {YOUR_PHONE}
+
+  example: |
+    READY TO PROCEED?
+
+    To accept this proposal and begin your Method Codification transformation:
+
+    1. Select your preferred option (1, 2, or 3)
+    2. Sign below and return via email to robson@geniusmethods.com
+    3. Submit initial payment (50%) via bank transfer or Stripe
+    4. We'll schedule kickoff call within 48 hours
+
+    OPTION SELECTED: ____ (1 / 2 / 3)
+
+    CLIENT SIGNATURE: _________________________
+
+    PRINTED NAME: _________________________
+
+    DATE: _________________________
+
+
+    Questions? Let's discuss on our scheduled follow-up call on
+    March 3, 2026 at 10:00 AM (São Paulo time).
+
+    I look forward to partnering with you on this transformation.
+
+    Robson Melo
+    Founder & Method Architect
+    Genius Methods
+    robson@geniusmethods.com
+    +55 11 9xxxx-xxxx
+
+# =================================================================
+# USAGE NOTES
+# =================================================================
+usage_notes: |
+  CRITICAL SUCCESS FACTORS:
+  1. Complete value conversation FIRST - never send cold
+  2. Use CLIENT'S language from value conversation (not your assumptions)
+  3. Keep to 2-3 pages (delete this YAML comments section when creating PDF)
+  4. Value (Part 4) comes BEFORE fees (Part 5) - ALWAYS
+  5. Offer choice of yeses (3 options minimum)
+  6. Schedule follow-up call 3 days after sending
+  7. Don't negotiate Option 1 price down - offer payment plans instead
+
+  CLOSE RATE EXPECTATIONS:
+  • After value conversation: 60-80%
+  • Cold send (no conversation): 10-20%
+  • With case study/testimonial: 75-85%
+
+  COMMON MISTAKES TO AVOID:
+  • Sending before value conversation (plummets close rate)
+  • Making it too long (>3 pages loses attention)
+  • Fees before value (triggers price objection)
+  • Single option (no choice = pressure = resistance)
+  • Generic language (use THEIR words from conversations)
+
+# END OF TEMPLATE

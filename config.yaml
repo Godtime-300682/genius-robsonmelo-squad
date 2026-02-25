@@ -1,0 +1,195 @@
+## ============================================================================
+## GENIUS ROBSON MELO SQUAD - Configuration
+## ============================================================================
+## Personal operational squad for method creation, delivery, finance & brand
+## Based on Genius Zone Blueprint analysis
+## ============================================================================
+
+name: genius-robsonmelo-squad
+title: "Genius Robson Melo Squad"
+version: "1.0.0"
+author: "Robson Melo"
+description: >
+  Personal operational squad based on Genius Zone Blueprint (Gay Hendricks,
+  CliftonStrengths, Dan Sullivan, Roger Hamilton, Alex Hormozi, Kathy Kolbe,
+  Sally Hogshead). Combines elite minds in method creation, operations delivery,
+  financial management, and brand amplification to execute high-ticket method
+  productization business model (R$100K/mês with 5 clients @ R$20K).
+
+## Slash command prefix for Claude Code
+slash_prefix: "GeniusRobson"
+pattern_prefix: "GR"
+
+## Target audience
+target_user: "Robson Melo - Creator/Deal Maker profile transitioning from Excellence to Genius Zone"
+
+## Business model
+business_model:
+  model: "High-ticket method productization"
+  target_revenue: "R$100K/month"
+  client_structure: "5 clients @ R$20K each"
+  timeline: "90-day acceleration"
+
+## Use cases
+use_cases:
+  - id: UC1
+    name: "Method Codification"
+    description: "Transform invisible pattern recognition into documented proprietary method"
+  - id: UC2
+    name: "IP Productization"
+    description: "Package expertise into high-ticket offer with guarantees and bonuses"
+  - id: UC3
+    name: "Operations Systematization"
+    description: "Create delivery systems that don't require founder presence"
+  - id: UC4
+    name: "Cash Flow Management"
+    description: "Profit First system for preserving gains and managing growth"
+  - id: UC5
+    name: "Brand Amplification"
+    description: "StoryBrand messaging + funnel strategy for premium positioning"
+
+## Tier structure
+tiers:
+  orchestrator:
+    - genius-robsonmelo-chief
+  tier_0:
+    # Method Architects (YOU + Support)
+    - david-c-baker      # IP Productization expert
+    - blair-enns         # Positioning & Pricing expert
+    - alan-weiss         # Consulting IP & Market Gravity
+  tier_1:
+    # Delivery Operators
+    - sam-carpenter      # Work The System - Systematization
+    - gino-wickman       # EOS/Traction - Business Operations
+    - michael-gerber     # E-Myth - Systems & Processes
+    # Financial Manager
+    - mike-michalowicz   # Profit First - Cash Flow
+    # Brand Amplifiers
+    - donald-miller      # StoryBrand - Brand Messaging
+    - russell-brunson    # Funnel Hacking - Brand Distribution
+
+## Tasks
+tasks:
+  - start
+  - codify-method
+  - create-grand-slam-offer
+  - systemize-delivery
+  - implement-profit-first
+  - craft-brand-story
+  - build-funnel-strategy
+  - validate-positioning
+
+## Workflows
+workflows:
+  - wf-method-to-market      # End-to-end: Method → Offer → Market
+  - wf-90-day-acceleration   # Execute blueprint's 90-day plan
+  - wf-client-delivery       # Deliver transformation to paying clients
+
+## Quality gates
+quality_gates:
+  - id: QG-GR-001
+    name: "Method Codified"
+    transition: "Pattern Recognition -> Documented Framework"
+    blocking: true
+    criteria:
+      - "Method has unique name"
+      - "3-step minimum process documented"
+      - "Transformation promise articulated"
+
+  - id: QG-GR-002
+    name: "Offer Validated"
+    transition: "Framework -> Grand Slam Offer"
+    blocking: true
+    criteria:
+      - "Dream outcome defined"
+      - "Unique mechanism articulated"
+      - "Price R$15K-R$30K set"
+      - "Guarantee documented"
+      - "Bonus stack created"
+
+  - id: QG-GR-003
+    name: "Systems Ready"
+    transition: "Offer -> Delivery Infrastructure"
+    blocking: true
+    criteria:
+      - "Delivery process documented (1-2-3 steps)"
+      - "Client onboarding checklist exists"
+      - "Quality checkpoints defined"
+
+  - id: QG-GR-004
+    name: "Brand Amplified"
+    transition: "Offer -> Market Positioning"
+    blocking: true
+    criteria:
+      - "StoryBrand script complete"
+      - "Value ladder mapped"
+      - "Lead magnet created"
+
+## Research foundation
+research:
+  minds_count: 9
+  minds:
+    # Tier 0 - Method Architects
+    - name: "David C. Baker"
+      tier: 0
+      role: "IP Productization"
+      frameworks: ["Pattern-Matching Expertise", "Positioning Framework", "Productization Process"]
+      skin_in_game: "Advised 900+ firms, documented methodology"
+
+    - name: "Blair Enns"
+      tier: 0
+      role: "Positioning & Pricing"
+      frameworks: ["Win Without Pitching", "Four Conversations", "Pricing Creativity"]
+      skin_in_game: "30k+ books sold, trained thousands of consultants"
+
+    - name: "Alan Weiss"
+      tier: 0
+      role: "Consulting IP & Market Gravity"
+      frameworks: ["Million Dollar Consulting", "Value-Based Pricing", "IP Creation"]
+      skin_in_game: "30+ years, 60+ books, 'Rock Star of Consulting'"
+
+    # Tier 1 - Delivery Operators
+    - name: "Sam Carpenter"
+      tier: 1
+      role: "Systematization"
+      frameworks: ["Work The System", "3 Core Documents", "1-2-3 Step Processes"]
+      skin_in_game: "80hr→0hr workweek, 100x net income increase"
+
+    - name: "Gino Wickman"
+      tier: 1
+      role: "Business Operations"
+      frameworks: ["EOS/Traction", "6 Key Components", "L10 Meetings"]
+      skin_in_game: "250,000+ businesses using EOS worldwide"
+
+    - name: "Michael Gerber"
+      tier: 1
+      role: "Systems & Processes"
+      frameworks: ["E-Myth", "Technician-Manager-Entrepreneur", "Operations Manual"]
+      skin_in_game: "Millions of books sold, 30% efficiency gains documented"
+
+    # Tier 1 - Financial Manager
+    - name: "Mike Michalowicz"
+      tier: 1
+      role: "Cash Flow Management"
+      frameworks: ["Profit First", "5-Account System", "Allocation Percentages"]
+      skin_in_game: "1M+ companies using system, serial entrepreneur"
+
+    # Tier 1 - Brand Amplifiers
+    - name: "Donald Miller"
+      tier: 1
+      role: "Brand Messaging"
+      frameworks: ["StoryBrand", "7-Part Story Framework", "BrandScript"]
+      skin_in_game: "1M+ leaders trained, StoryBrand 2.0 with AI"
+
+    - name: "Russell Brunson"
+      tier: 1
+      role: "Brand Distribution"
+      frameworks: ["Funnel Hacking", "DotCom Secrets", "Value Ladder"]
+      skin_in_game: "ClickFunnels (hundreds of millions), Funnel Hacking Live"
+
+## Dependencies
+dependencies:
+  required:
+    - zona-genialidade    # Original assessment that generated the blueprint
+  optional:
+    - squad-creator       # For expanding squad if needed
