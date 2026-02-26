@@ -1,0 +1,21 @@
+{
+  "name": "automacao-teixeira-brito",
+  "version": "1.0.0",
+  "description": "Sistema de Automação IA 24/7 - Teixeira Brito Advocacia",
+  "private": true,
+  "scripts": {
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy",
+    "db:migrate": "wrangler d1 execute teixeira-brito-db --file=src/db/schema.sql",
+    "db:migrate:local": "wrangler d1 execute teixeira-brito-db --local --file=src/db/schema.sql",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "hono": "^4.4.0"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "^4.20240620.0",
+    "typescript": "^5.5.0",
+    "wrangler": "^3.60.0"
+  }
+}

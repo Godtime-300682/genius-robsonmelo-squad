@@ -1,3 +1,40 @@
-name = "apresentacao-teixeira-brito"
-main = "worker.js"
-compatibility_date = "2024-01-01"
+name = "teixeira-brito-api"
+main = "src/gateway/index.ts"
+compatibility_date = "2024-06-01"
+compatibility_flags = ["nodejs_compat"]
+
+# Banco de dados D1
+[[d1_databases]]
+binding = "DB"
+database_name = "teixeira-brito-db"
+database_id = "" # Será preenchido após criação
+
+# KV Namespaces
+[[kv_namespaces]]
+binding = "SESSIONS"
+id = "" # Será preenchido após criação
+
+[[kv_namespaces]]
+binding = "CACHE"
+id = "" # Será preenchido após criação
+
+# R2 Bucket (armazenamento de documentos)
+[[r2_buckets]]
+binding = "DOCS"
+bucket_name = "teixeira-brito-docs"
+
+# Variáveis de ambiente (secrets via wrangler secret put)
+[vars]
+ENVIRONMENT = "production"
+APP_NAME = "Teixeira Brito IA"
+ESCRITORIO_NOME = "Teixeira Brito Advocacia"
+
+# Cron Triggers (para prazos e cobrança)
+[triggers]
+crons = [
+  "0 8 * * 1-5",   # Verificar prazos TJ - 8h seg-sex
+  "0 9 * * 1-5",   # Enviar lembretes de audiência - 9h seg-sex
+  "0 10 * * 1-5",  # Processar cobranças - 10h seg-sex
+  "0 14 * * 1-5",  # Verificar assinaturas pendentes - 14h seg-sex
+  "0 7 * * 1-5"    # Cobrar documentos faltantes - 7h seg-sex
+]
