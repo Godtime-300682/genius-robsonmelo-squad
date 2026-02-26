@@ -201,8 +201,9 @@ app.get('/cron/audiencias', async (c) => {
 });
 
 app.get('/cron/cobrancas', async (c) => {
-  // Processar cobranças (10:00)
-  return c.json({ success: true, message: 'Cron cobranças executado' });
+  const { processarCobrancasDiarias } = await import('../modules/cobranca/engine');
+  const resultado = await processarCobrancasDiarias(c.env);
+  return c.json({ success: true, data: resultado });
 });
 
 app.get('/cron/assinaturas', async (c) => {
@@ -256,9 +257,13 @@ export default {
         console.log(`Cron lembretes: ${lembretes.enviados} enviados, ${lembretes.erros} erros`);
         break;
       }
-      case 13: // 10h BR - Cobranças
-        console.log('Cron: Processando cobranças...');
+      case 13: { // 10h BR - Cobranças automáticas
+        console.log('Cron: Processando cobrancas automaticas...');
+        const { processarCobrancasDiarias } = await import('../modules/cobranca/engine');
+        const cobrancas = await processarCobrancasDiarias(env);
+        console.log(`Cron cobrancas: ${cobrancas.processadas} processadas, ${cobrancas.enviadas_whatsapp} WA, ${cobrancas.escaladas} escaladas, ${cobrancas.erros.length} erros`);
         break;
+      }
       case 17: // 14h BR - Assinaturas
         console.log('Cron: Verificando assinaturas pendentes...');
         break;

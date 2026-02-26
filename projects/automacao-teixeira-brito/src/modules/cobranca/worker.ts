@@ -143,3 +143,68 @@ cobrancaRoutes.patch('/:id/pago', async (c) => {
 
   return c.json({ success: true, data: { id, status: 'pago', pago_em: timestamp } });
 });
+
+// PATCH /:id/negociar - Marcar como negociando
+cobrancaRoutes.patch('/:id/negociar', async (c) => {
+  const id = c.req.param('id');
+
+  const cobranca = await c.env.DB.prepare('SELECT id FROM cobrancas WHERE id = ?').bind(id).first();
+  if (!cobranca) {
+    return c.json({ success: false, error: 'Cobranca nao encontrada' }, 404);
+  }
+
+  await c.env.DB.prepare(`
+    UPDATE cobrancas SET status = 'negociando' WHERE id = ?
+  `).bind(id).run();
+
+  return c.json({ success: true, data: { id, status: 'negociando' } });
+});
+
+// GET /relatorio - Relatorio completo de inadimplencia
+cobrancaRoutes.get('/relatorio', async (c) => {
+  const { gerarRelatorioInadimplencia } = await import('./engine');
+  const relatorio = await gerarRelatorioInadimplencia(c.env);
+  return c.json({ success: true, data: relatorio });
+});
+
+// POST /processar-manual - Executar motor de cobranca manualmente (admin)
+cobrancaRoutes.post('/processar-manual', async (c) => {
+  const user = c.get('user');
+  if (!['admin', 'coordenador'].includes(user.role)) {
+    return c.json({ success: false, error: 'Apenas admin/coordenador pode executar cobranca manual' }, 403);
+  }
+
+  const { processarCobrancasDiarias } = await import('./engine');
+  const resultado = await processarCobrancasDiarias(c.env);
+  return c.json({ success: true, data: resultado });
+});
+
+// GET /dashboard - Metricas resumidas para dashboard
+cobrancaRoutes.get('/dashboard', async (c) => {
+  const hoje = new Date().toISOString().split('T')[0];
+  const inicioMes = hoje.substring(0, 7) + '-01';
+
+  const [statusGeral, vencendoHoje, pagosMes] = await Promise.all([
+    c.env.DB.prepare(`
+      SELECT status, COUNT(*) as qtd, SUM(valor) as total
+      FROM cobrancas GROUP BY status
+    `).all(),
+    c.env.DB.prepare(`
+      SELECT COUNT(*) as qtd, SUM(valor) as total
+      FROM cobrancas WHERE status = 'a_vencer' AND data_vencimento = ?
+    `).bind(hoje).first(),
+    c.env.DB.prepare(`
+      SELECT COUNT(*) as qtd, SUM(valor) as total
+      FROM cobrancas WHERE status = 'pago' AND pago_em >= ?
+    `).bind(inicioMes).first(),
+  ]);
+
+  return c.json({
+    success: true,
+    data: {
+      por_status: statusGeral.results,
+      vencendo_hoje: { quantidade: vencendoHoje?.qtd || 0, valor: vencendoHoje?.total || 0 },
+      pagos_mes: { quantidade: pagosMes?.qtd || 0, valor: pagosMes?.total || 0 },
+    },
+  });
+});

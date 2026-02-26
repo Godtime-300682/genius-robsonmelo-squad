@@ -11,9 +11,9 @@
 ╔══════════════════════════════════════════════════════════════╗
 ║              AUTOMACAO TEIXEIRA BRITO IA                     ║
 ║                                                              ║
-║  Fases: [####====] 4/8 completas (50%)                      ║
-║  Codigo: 5.158 linhas | 23 arquivos TypeScript               ║
-║  Commits: 5 (feat)                                           ║
+║  Fases: [#####===] 5/8 completas (62.5%)                     ║
+║  Codigo: 5.658+ linhas | 24 arquivos TypeScript              ║
+║  Commits: 7 (feat + docs)                                    ║
 ║  Stack: Cloudflare Workers + Hono + D1 + KV + R2             ║
 ╚══════════════════════════════════════════════════════════════╝
 ```
@@ -25,7 +25,7 @@ FASE 1 - Fundacao        [##########] 100%  ✅ 25/02/2026
 FASE 2 - Triagem         [##########] 100%  ✅ 25/02/2026
 FASE 3 - WhatsApp 24/7   [##########] 100%  ✅ 25/02/2026
 FASE 4 - Prazos IA       [##########] 100%  ✅ 26/02/2026
-FASE 5 - Cobranca Auto   [..........]   0%  ⏳ Pendente
+FASE 5 - Cobranca Auto   [##########] 100%  ✅ 26/02/2026
 FASE 6 - Comercial IA    [..........]   0%  ⏳ Pendente
 FASE 7 - Audiencias      [..........]   0%  ⏳ Pendente
 FASE 8 - Dashboard       [..........]   0%  ⏳ Pendente
@@ -46,7 +46,7 @@ FASE 8 - Dashboard       [..........]   0%  ⏳ Pendente
   │ Triagem      ██████████████████░░░░░░░░░░  874     │
   │ WhatsApp     ███████████████████░░░░░░░░░  944     │
   │ Prazos       ████████████████████████░░░░ 1.046    │
-  │ Cobranca     ████░░░░░░░░░░░░░░░░░░░░░░░  145     │
+  │ Cobranca     ██████████████░░░░░░░░░░░░░░  500+    │
   │ Comercial    █████░░░░░░░░░░░░░░░░░░░░░░░  187     │
   │ Audiencias   █████░░░░░░░░░░░░░░░░░░░░░░░  178     │
   │ Documentos   ████░░░░░░░░░░░░░░░░░░░░░░░░  146     │
@@ -460,20 +460,52 @@ FASE 8 - Dashboard       [..........]   0%  ⏳ Pendente
 
 ---
 
-### FASE 5: Cobranca Automatica ⏳
+### FASE 5: Cobranca Automatica ✅
 
-**Status:** PENDENTE
+**Data:** 26/02/2026 | **Commit:** (atual) | **Status:** COMPLETA
 
 **Objetivo:** Sequencia automatica de cobranca por WhatsApp (D-3, D0, D+3, D+7, D+15)
 
-**Modulo existente:** `modules/cobranca/worker.ts` (145 linhas - CRUD basico)
+**Arquivos Criados/Modificados:**
 
-**Falta implementar:**
-- [ ] Motor de sequencia de cobranca (D-3 a D+15)
-- [ ] Cron de processamento diario
-- [ ] Templates WhatsApp por etapa
-- [ ] Integracao com gateway cron real
-- [ ] Dashboard de inadimplencia
+| Arquivo | Linhas | Funcao |
+|---------|--------|--------|
+| `modules/cobranca/engine.ts` | 350+ | Motor de cobranca (sequencia D-3 a D+15, templates, escalacao) |
+| `modules/cobranca/worker.ts` | 210+ | 8 endpoints (CRUD + relatorio + dashboard + processar-manual) |
+| `gateway/index.ts` | +8 | Cron real integrado (10h) |
+
+**Sequencia de Cobranca:**
+
+```
+  ┌──────────────────────────────────────────────────────────┐
+  │              SEQUENCIA AUTOMATICA                        │
+  │                                                          │
+  │  Seq 1 │ D-3  │ Lembrete gentil      │ WhatsApp         │
+  │  Seq 2 │ D0   │ Aviso de vencimento  │ WhatsApp         │
+  │  Seq 3 │ D+3  │ Cobranca firme       │ WhatsApp + Email │
+  │  Seq 4 │ D+7  │ Cobranca final       │ WhatsApp + Email │
+  │  Seq 5 │ D+15 │ ESCALAR coordenador  │ WA + Email + Sist│
+  └──────────────────────────────────────────────────────────┘
+```
+
+**Funcionalidades:**
+- Motor de sequencia com 5 templates progressivos (gentil → escalar)
+- Cooldown: max 1 cobranca/dia por boleto
+- Escalacao D+15: notifica coordenador (Breno) via WhatsApp + sistema
+- Relatorio de inadimplencia (taxa, top devedores, por sequencia)
+- Dashboard financeiro (por status, vencendo hoje, pagos no mes)
+- Atualizacao automatica de status (a_vencer → vencido)
+- Log de atividade em cada cobranca enviada
+
+**Endpoints:**
+- `POST /api/cobranca` — Criar cobranca
+- `GET /api/cobranca` — Listar com filtros
+- `GET /api/cobranca/inadimplentes` — Agrupado por cliente
+- `GET /api/cobranca/relatorio` — Relatorio completo de inadimplencia
+- `GET /api/cobranca/dashboard` — Metricas resumidas
+- `PATCH /api/cobranca/:id/pago` — Marcar como pago
+- `PATCH /api/cobranca/:id/negociar` — Marcar como negociando
+- `POST /api/cobranca/processar-manual` — Executar motor (admin)
 
 ---
 
