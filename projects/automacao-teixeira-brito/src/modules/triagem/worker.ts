@@ -6,6 +6,8 @@
 import { Hono } from 'hono';
 import type { Env, JWTPayload } from '../../shared/types';
 import { generateId, now } from '../../shared/utils';
+import { executarTriagem, processarAssinaturasConcluidas, comunicarConclusaoTriagem } from './handlers';
+import type { TriagemInput } from './handlers';
 
 type HonoEnv = { Bindings: Env; Variables: { user: JWTPayload } };
 
@@ -152,4 +154,41 @@ triagemRoutes.patch('/:id/status', async (c) => {
   }
 
   return c.json({ success: true, data: { id, status, fase_pipeline: fase_pipeline ?? status } });
+});
+
+// ============================================
+// POST /automatica - Triagem completa automática (9 passos do POP)
+// ============================================
+triagemRoutes.post('/automatica', async (c) => {
+  const input = await c.req.json<TriagemInput>();
+
+  try {
+    const resultado = await executarTriagem(c.env, input);
+
+    const statusCode = resultado.status === 'erro' ? 500 : 201;
+    return c.json({ success: resultado.status !== 'erro', data: resultado }, statusCode);
+  } catch (e) {
+    return c.json({ success: false, error: `Erro na triagem: ${(e as Error).message}` }, 500);
+  }
+});
+
+// POST /verificar-assinaturas - Verificar assinaturas pendentes (chamado pelo cron)
+triagemRoutes.post('/verificar-assinaturas', async (c) => {
+  try {
+    await processarAssinaturasConcluidas(c.env);
+    return c.json({ success: true, message: 'Assinaturas verificadas' });
+  } catch (e) {
+    return c.json({ success: false, error: (e as Error).message }, 500);
+  }
+});
+
+// POST /concluir/:casoId - Comunicar conclusão da triagem (quando todos docs recebidos)
+triagemRoutes.post('/concluir/:casoId', async (c) => {
+  const casoId = c.req.param('casoId');
+  try {
+    await comunicarConclusaoTriagem(c.env, casoId);
+    return c.json({ success: true, message: 'Triagem concluída e comunicada' });
+  } catch (e) {
+    return c.json({ success: false, error: (e as Error).message }, 500);
+  }
 });
