@@ -185,3 +185,129 @@ comercialRoutes.patch('/lead/:id/status', async (c) => {
 
   return c.json({ success: true, data: { id, status: body.status, score: body.score } });
 });
+
+// ============================================
+// NOVOS ENDPOINTS - FASE 6 (Comercial IA)
+// ============================================
+
+// POST /qualificar-manual - Executar qualificacao IA manualmente (admin/coordenador)
+comercialRoutes.post('/qualificar-manual', async (c) => {
+  const user = c.get('user');
+  if (!['admin', 'coordenador', 'comercial'].includes(user.role)) {
+    return c.json({ success: false, error: 'Sem permissao para qualificacao manual' }, 403);
+  }
+
+  const { qualificarLeadsPendentes } = await import('./qualifier');
+  const resultado = await qualificarLeadsPendentes(c.env);
+  return c.json({ success: true, data: resultado });
+});
+
+// POST /lead/:id/qualificar - Qualificar lead especifico via IA
+comercialRoutes.post('/lead/:id/qualificar', async (c) => {
+  const leadId = c.req.param('id');
+  const { qualificarLeadsPendentes } = await import('./qualifier');
+
+  // Marcar como nao qualificado para reprocessar
+  await c.env.DB.prepare(
+    'UPDATE leads SET qualificado_por_ia = 0, status = ? WHERE id = ?'
+  ).bind('novo', leadId).run();
+
+  const resultado = await qualificarLeadsPendentes(c.env);
+  return c.json({ success: true, data: resultado });
+});
+
+// POST /lead/:id/agendar - Enviar proposta de agendamento via WhatsApp
+comercialRoutes.post('/lead/:id/agendar', async (c) => {
+  const leadId = c.req.param('id');
+  const { enviarPropostaAgendamento } = await import('./qualifier');
+
+  const resultado = await enviarPropostaAgendamento(c.env, leadId);
+  return c.json({ success: true, data: resultado });
+});
+
+// GET /lead/:id/sugestao-agendamento - Sugerir horarios para agendamento
+comercialRoutes.get('/lead/:id/sugestao-agendamento', async (c) => {
+  const leadId = c.req.param('id');
+  const { sugerirAgendamento } = await import('./qualifier');
+
+  const sugestao = await sugerirAgendamento(c.env, leadId);
+  return c.json({ success: true, data: sugestao });
+});
+
+// GET /lead/:id/briefing - Gerar briefing pre-reuniao com IA
+comercialRoutes.get('/lead/:id/briefing', async (c) => {
+  const leadId = c.req.param('id');
+  const { gerarBriefingPreReuniao } = await import('./qualifier');
+
+  const briefing = await gerarBriefingPreReuniao(c.env, leadId);
+  return c.json({ success: true, data: { briefing } });
+});
+
+// POST /lead/:id/converter - Converter lead em cliente + caso
+comercialRoutes.post('/lead/:id/converter', async (c) => {
+  const leadId = c.req.param('id');
+  const body = await c.req.json<{
+    cpf_cnpj: string;
+    endereco: string;
+    tipo_caso: string;
+    area_direito: string;
+    advogado_id: string;
+    valor_causa?: number;
+    valor_honorarios?: number;
+    numero_processo?: string;
+  }>();
+
+  const { converterLeadEmCliente } = await import('./qualifier');
+  const resultado = await converterLeadEmCliente(c.env, leadId, body);
+  return c.json({ success: true, data: resultado }, 201);
+});
+
+// GET /metricas - Metricas completas do comercial
+comercialRoutes.get('/metricas', async (c) => {
+  const { gerarMetricasComercial } = await import('./qualifier');
+  const metricas = await gerarMetricasComercial(c.env);
+  return c.json({ success: true, data: metricas });
+});
+
+// GET /dashboard - Dashboard resumido do comercial
+comercialRoutes.get('/dashboard', async (c) => {
+  const hoje = new Date().toISOString().split('T')[0];
+  const inicioMes = hoje.substring(0, 7) + '-01';
+
+  const [pipeline, scoring, leadsHoje, leadsSemana] = await Promise.all([
+    c.env.DB.prepare(`
+      SELECT status, COUNT(*) as qtd FROM leads GROUP BY status
+    `).all(),
+    c.env.DB.prepare(`
+      SELECT score, COUNT(*) as qtd FROM leads WHERE status NOT IN ('perdido') GROUP BY score
+    `).all(),
+    c.env.DB.prepare(`
+      SELECT COUNT(*) as qtd FROM leads WHERE created_at >= ?
+    `).bind(hoje).first(),
+    c.env.DB.prepare(`
+      SELECT COUNT(*) as qtd FROM leads WHERE created_at >= ?
+    `).bind(inicioMes).first(),
+  ]);
+
+  return c.json({
+    success: true,
+    data: {
+      pipeline: pipeline.results,
+      scoring: scoring.results,
+      leads_hoje: leadsHoje?.qtd || 0,
+      leads_mes: leadsSemana?.qtd || 0,
+    },
+  });
+});
+
+// POST /followup-manual - Executar follow-ups manualmente
+comercialRoutes.post('/followup-manual', async (c) => {
+  const user = c.get('user');
+  if (!['admin', 'coordenador', 'comercial'].includes(user.role)) {
+    return c.json({ success: false, error: 'Sem permissao' }, 403);
+  }
+
+  const { processarFollowUps } = await import('./qualifier');
+  const resultado = await processarFollowUps(c.env);
+  return c.json({ success: true, data: resultado });
+});

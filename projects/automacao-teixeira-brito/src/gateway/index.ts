@@ -264,6 +264,20 @@ export default {
         console.log(`Cron cobrancas: ${cobrancas.processadas} processadas, ${cobrancas.enviadas_whatsapp} WA, ${cobrancas.escaladas} escaladas, ${cobrancas.erros.length} erros`);
         break;
       }
+      case 14: { // 11h BR - Qualificação IA de leads
+        console.log('Cron: Qualificando leads pendentes via IA...');
+        const { qualificarLeadsPendentes } = await import('../modules/comercial/qualifier');
+        const qualificacao = await qualificarLeadsPendentes(env);
+        console.log(`Cron comercial: ${qualificacao.leads_processados} leads, ${qualificacao.qualificados_quente} quentes, ${qualificacao.atribuidos_closer} atribuídos, ${qualificacao.erros.length} erros`);
+        break;
+      }
+      case 16: { // 13h BR - Follow-ups automáticos
+        console.log('Cron: Processando follow-ups comerciais...');
+        const { processarFollowUps } = await import('../modules/comercial/qualifier');
+        const followups = await processarFollowUps(env);
+        console.log(`Cron follow-ups: ${followups.followups_enviados} enviados, ${followups.leads_perdidos} perdidos, ${followups.erros.length} erros`);
+        break;
+      }
       case 17: // 14h BR - Assinaturas
         console.log('Cron: Verificando assinaturas pendentes...');
         break;

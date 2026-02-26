@@ -11,9 +11,9 @@
 ╔══════════════════════════════════════════════════════════════╗
 ║              AUTOMACAO TEIXEIRA BRITO IA                     ║
 ║                                                              ║
-║  Fases: [#####===] 5/8 completas (62.5%)                     ║
-║  Codigo: 5.658+ linhas | 24 arquivos TypeScript              ║
-║  Commits: 7 (feat + docs)                                    ║
+║  Fases: [######==] 6/8 completas (75%)                       ║
+║  Codigo: 6.500+ linhas | 26 arquivos TypeScript              ║
+║  Commits: 8 (feat + docs)                                    ║
 ║  Stack: Cloudflare Workers + Hono + D1 + KV + R2             ║
 ╚══════════════════════════════════════════════════════════════╝
 ```
@@ -26,7 +26,7 @@ FASE 2 - Triagem         [##########] 100%  ✅ 25/02/2026
 FASE 3 - WhatsApp 24/7   [##########] 100%  ✅ 25/02/2026
 FASE 4 - Prazos IA       [##########] 100%  ✅ 26/02/2026
 FASE 5 - Cobranca Auto   [##########] 100%  ✅ 26/02/2026
-FASE 6 - Comercial IA    [..........]   0%  ⏳ Pendente
+FASE 6 - Comercial IA    [##########] 100%  ✅ 26/02/2026
 FASE 7 - Audiencias      [..........]   0%  ⏳ Pendente
 FASE 8 - Dashboard       [..........]   0%  ⏳ Pendente
 ```
@@ -47,12 +47,12 @@ FASE 8 - Dashboard       [..........]   0%  ⏳ Pendente
   │ WhatsApp     ███████████████████░░░░░░░░░  944     │
   │ Prazos       ████████████████████████░░░░ 1.046    │
   │ Cobranca     ██████████████░░░░░░░░░░░░░░  500+    │
-  │ Comercial    █████░░░░░░░░░░░░░░░░░░░░░░░  187     │
+  │ Comercial    ████████████████████░░░░░░░░  700+    │
   │ Audiencias   █████░░░░░░░░░░░░░░░░░░░░░░░  178     │
   │ Documentos   ████░░░░░░░░░░░░░░░░░░░░░░░░  146     │
   │ Dashboard    ████████░░░░░░░░░░░░░░░░░░░░  263     │
   └────────────────────────────────────────────────────┘
-  TOTAL: 5.158 linhas
+  TOTAL: 6.000+ linhas
 ```
 
 ### Endpoints da API
@@ -68,14 +68,14 @@ FASE 8 - Dashboard       [..........]   0%  ⏳ Pendente
   │ WhatsApp     │  3  │   2  │   -   │   5   │
   │ Prazos       │  3  │   4  │   1   │   8   │
   │ Cobranca     │  2  │   1  │   1   │   4   │
-  │ Comercial    │  2  │   2  │   1   │   5   │
+  │ Comercial    │  4  │   5  │   1   │  10   │
   │ Audiencias   │  2  │   1  │   1   │   4   │
   │ Documentos   │  2  │   2  │   -   │   4   │
   │ Dashboard    │  4  │   -  │   -   │   4   │
   │ Webhook      │  -  │   1  │   -   │   1   │
-  │ Crons        │  5  │   -  │   -   │   5   │
+  │ Crons        │  7  │   -  │   -   │   7   │
   ├───────────────────────────────────────────┤
-  │ TOTAL        │ 26  │  17  │   5   │  48   │
+  │ TOTAL        │ 30  │  22  │   5   │  57   │
   └───────────────────────────────────────────┘
 ```
 
@@ -509,20 +509,151 @@ FASE 8 - Dashboard       [..........]   0%  ⏳ Pendente
 
 ---
 
-### FASE 6: Comercial Inteligente ⏳
+### FASE 6: Comercial Inteligente ✅
 
-**Status:** PENDENTE
+**Data:** 26/02/2026 | **Commit:** (atual) | **Status:** COMPLETA
 
-**Objetivo:** Qualificacao de leads com IA, agendamento automatico, briefing
+**Objetivo:** Qualificacao de leads com IA, scoring automatico, assignment, briefing, follow-up
 
-**Modulo existente:** `modules/comercial/worker.ts` (187 linhas - CRUD basico)
+**Arquivos Criados/Modificados:**
 
-**Falta implementar:**
-- [ ] Qualificacao automatica de leads via GPT-4o
-- [ ] Score automatico (quente/morno/frio)
-- [ ] Agendamento automatico
-- [ ] Briefing IA para o closer
-- [ ] Pipeline comercial com metricas
+| Arquivo | Linhas | Funcao |
+|---------|--------|--------|
+| `modules/comercial/qualifier.ts` | 470+ | Motor IA (qualificacao, scoring, assignment, briefing, follow-up, conversao) |
+| `modules/comercial/worker.ts` | 280+ | 10 endpoints (CRUD + qualificar + agendar + briefing + converter + metricas) |
+| `gateway/index.ts` | +14 | Crons: qualificacao IA (11h) + follow-ups (13h) |
+
+**Pipeline Comercial IA:**
+
+```
+  ┌──────────────────────────────────────────────────────────┐
+  │              PIPELINE COMERCIAL INTELIGENTE               │
+  │                                                           │
+  │  LEAD ENTRA                                               │
+  │      │                                                    │
+  │      ▼                                                    │
+  │  ┌──────────────┐                                         │
+  │  │ 1. CADASTRO  │  POST /api/comercial/lead               │
+  │  │    manual ou │  Canal: site/whatsapp/indicacao/redes    │
+  │  │    chatbot   │  Score inicial: urgencia-based           │
+  │  └──────┬───────┘                                         │
+  │         │                                                 │
+  │         ▼                                                 │
+  │  ┌──────────────┐                                         │
+  │  │ 2. QUALIFIC. │  CRON 11h BR (14h UTC)                  │
+  │  │    IA        │  GPT-4o-mini analisa:                    │
+  │  │              │  - tipo caso + urgencia + canal          │
+  │  │              │  - area_direito + valor_estimado         │
+  │  │              │  - probabilidade_fechamento              │
+  │  └──────┬───────┘                                         │
+  │         │                                                 │
+  │    ┌────┼─────────┐                                       │
+  │    │    │         │                                       │
+  │    ▼    ▼         ▼                                       │
+  │  🔥     🟡        🔵                                      │
+  │  QUENTE MORNO     FRIO                                    │
+  │    │    │         │                                       │
+  │    │    │         └─ Aguardar (sem closer)                │
+  │    │    │                                                 │
+  │    ▼    ▼                                                 │
+  │  ┌──────────────┐                                         │
+  │  │ 3. ATRIBUIR  │  Round-robin: usuario com menos leads   │
+  │  │    CLOSER    │  Roles: comercial ou coordenador         │
+  │  └──────┬───────┘                                         │
+  │         │                                                 │
+  │         ▼                                                 │
+  │  ┌──────────────┐                                         │
+  │  │ 4. BRIEFING  │  IA gera briefing completo:             │
+  │  │    IA        │  - Score + area + valor estimado         │
+  │  │              │  - Probabilidade + proxima acao          │
+  │  │              │  - Dados do lead formatados              │
+  │  └──────┬───────┘                                         │
+  │         │                                                 │
+  │         ▼ (se QUENTE)                                     │
+  │  ┌──────────────┐                                         │
+  │  │ 5. NOTIFICAR │  WhatsApp para closer:                  │
+  │  │    CLOSER    │  "🔥 NOVO LEAD QUENTE!"                 │
+  │  │              │  + briefing resumido                     │
+  │  └──────┬───────┘                                         │
+  │         │                                                 │
+  │         ▼                                                 │
+  │  ┌──────────────┐                                         │
+  │  │ 6. AGENDAR   │  WhatsApp para lead:                    │
+  │  │    REUNIAO   │  3 sugestoes de horario                  │
+  │  │              │  Proximos 3 dias uteis                   │
+  │  └──────┬───────┘                                         │
+  │         │                                                 │
+  │         ▼                                                 │
+  │  ┌──────────────┐                                         │
+  │  │ 7. BRIEFING  │  Pre-reuniao com IA:                    │
+  │  │    REUNIAO   │  - Resumo do caso                       │
+  │  │              │  - Pontos-chave + objecoes               │
+  │  │              │  - Valor sugerido + estrategia           │
+  │  └──────┬───────┘                                         │
+  │         │                                                 │
+  │    ┌────┼─────────┐                                       │
+  │    ▼    ▼         │                                       │
+  │  FECHOU PERDEU    │                                       │
+  │    │              │                                       │
+  │    ▼              │                                       │
+  │  ┌──────────────┐ │                                       │
+  │  │ 8. CONVERTER │ │  Lead → Cliente + Caso no D1          │
+  │  │    CLIENTE   │ │  Status caso: triagem                  │
+  │  └──────────────┘ │                                       │
+  │                    ▼                                       │
+  │  ┌──────────────────────────────────────┐                 │
+  │  │ FOLLOW-UP AUTOMATICO (CRON 13h BR)  │                 │
+  │  │                                      │                 │
+  │  │  D+2-3:  "Conseguiu analisar?"      │                 │
+  │  │  D+4-7:  "Horarios flexiveis"       │                 │
+  │  │  D+8-10: "Mantemos na agenda"       │                 │
+  │  │  D+30:   Marcar como PERDIDO        │                 │
+  │  └──────────────────────────────────────┘                 │
+  └──────────────────────────────────────────────────────────┘
+```
+
+**Metricas Comerciais:**
+
+```
+  ┌──────────────────────────────────────────────────────┐
+  │               METRICAS DISPONIVEIS                    │
+  │                                                       │
+  │  PIPELINE:                                            │
+  │    Novos → Qualificados → Agendados → Fechados       │
+  │                                                       │
+  │  SCORING:                                             │
+  │    🔥 Quentes │ 🟡 Mornos │ 🔵 Frios                │
+  │                                                       │
+  │  CONVERSAO:                                           │
+  │    Lead → Qualif (%) │ Qualif → Agend (%)            │
+  │    Agend → Fechado (%) │ Taxa geral (%)              │
+  │                                                       │
+  │  POR CLOSER:                                          │
+  │    Leads ativos │ Fechados/mes │ Taxa conversao      │
+  │                                                       │
+  │  POR CANAL:                                           │
+  │    Site │ WhatsApp │ Indicacao │ Redes │ Outro       │
+  │    Total + Fechados + Taxa por canal                  │
+  │                                                       │
+  │  PERIODO:                                             │
+  │    Hoje │ Semana │ Mes │ Valor fechado no mes        │
+  └──────────────────────────────────────────────────────┘
+```
+
+**Endpoints:**
+- `POST /api/comercial/lead` — Criar lead (manual)
+- `GET /api/comercial/leads` — Listar com filtros
+- `GET /api/comercial/leads/quentes` — Leads prioritarios
+- `PATCH /api/comercial/lead/:id/status` — Atualizar status/score
+- `POST /api/comercial/qualificar-manual` — Executar qualificacao IA (admin)
+- `POST /api/comercial/lead/:id/qualificar` — Qualificar lead especifico via IA
+- `POST /api/comercial/lead/:id/agendar` — Enviar proposta agendamento (WhatsApp)
+- `GET /api/comercial/lead/:id/sugestao-agendamento` — Sugerir horarios
+- `GET /api/comercial/lead/:id/briefing` — Gerar briefing pre-reuniao (IA)
+- `POST /api/comercial/lead/:id/converter` — Converter lead em cliente + caso
+- `GET /api/comercial/metricas` — Metricas completas
+- `GET /api/comercial/dashboard` — Dashboard resumido
+- `POST /api/comercial/followup-manual` — Executar follow-ups (admin)
 
 ---
 
@@ -615,11 +746,13 @@ automacao-teixeira-brito/
         │   ├── scraper.ts             # Scraping TJ-GO (541 linhas)
         │   └── calculator.ts          # PI/PF/PR forense (284 linhas)
         │
-        ├── cobranca/                   # FASE 5 ⏳
-        │   └── worker.ts              # CRUD basico (145 linhas)
+        ├── cobranca/                   # FASE 5 ✅
+        │   ├── worker.ts              # 8 endpoints (210+ linhas)
+        │   └── engine.ts              # Motor cobranca (350+ linhas)
         │
-        ├── comercial/                  # FASE 6 ⏳
-        │   └── worker.ts              # CRUD basico (187 linhas)
+        ├── comercial/                  # FASE 6 ✅
+        │   ├── worker.ts              # 13 endpoints (280+ linhas)
+        │   └── qualifier.ts           # Motor IA comercial (470+ linhas)
         │
         ├── audiencias/                 # FASE 7 ⏳
         │   └── worker.ts              # CRUD basico (178 linhas)
@@ -642,6 +775,8 @@ automacao-teixeira-brito/
 | 3 | `1e5fbb9` | 25/02 23:01 | feat: FASE 2 - Modulo Triagem completo (9 passos POP 001) |
 | 4 | `1f463c8` | 25/02 23:42 | feat: FASE 3 - Chatbot WhatsApp 24/7 com IA |
 | 5 | `746e97b` | 26/02 09:09 | feat: FASE 4 - Gestao de Prazos IA completa |
+| 6 | `ec5bd43` | 26/02 10:xx | feat: FASE 5 - Cobranca Automatica completa |
+| 7 | `(atual)` | 26/02 xx:xx | feat: FASE 6 - Comercial Inteligente com IA |
 
 ---
 
@@ -670,4 +805,4 @@ automacao-teixeira-brito/
 ---
 
 *Documento gerado e mantido automaticamente pelo Orion (AIOS Master)*
-*Proxima atualizacao: ao concluir FASE 5*
+*Proxima atualizacao: ao concluir FASE 7*
