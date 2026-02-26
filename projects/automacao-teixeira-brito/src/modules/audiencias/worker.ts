@@ -176,3 +176,140 @@ audienciasRoutes.patch('/:id/resultado', async (c) => {
     data: { id, status: body.status, resultado: body.resultado, acordo_valor: body.acordo_valor },
   });
 });
+
+// ============================================
+// NOVOS ENDPOINTS - FASE 7 (Audiências IA)
+// ============================================
+
+// POST /lembretes-manual - Executar motor de lembretes manualmente (admin)
+audienciasRoutes.post('/lembretes-manual', async (c) => {
+  const user = c.get('user');
+  if (!['admin', 'coordenador'].includes(user.role)) {
+    return c.json({ success: false, error: 'Apenas admin/coordenador' }, 403);
+  }
+
+  const { processarLembretesDiarios } = await import('./reminder');
+  const resultado = await processarLembretesDiarios(c.env);
+  return c.json({ success: true, data: resultado });
+});
+
+// PATCH /:id/confirmar - Confirmar audiencia (advogado)
+audienciasRoutes.patch('/:id/confirmar', async (c) => {
+  const id = c.req.param('id');
+  const { confirmarAudiencia } = await import('./reminder');
+
+  await confirmarAudiencia(c.env, id);
+  return c.json({ success: true, data: { id, status: 'confirmada' } });
+});
+
+// GET /:id/preparacao - Gerar preparacao IA para audiencia
+audienciasRoutes.get('/:id/preparacao', async (c) => {
+  const id = c.req.param('id');
+  const { gerarPreparacaoAudiencia } = await import('./reminder');
+
+  const preparacao = await gerarPreparacaoAudiencia(c.env, id);
+  return c.json({ success: true, data: preparacao });
+});
+
+// GET /metricas - Metricas de audiencias
+audienciasRoutes.get('/metricas', async (c) => {
+  const { gerarMetricasAudiencias } = await import('./reminder');
+  const metricas = await gerarMetricasAudiencias(c.env);
+  return c.json({ success: true, data: metricas });
+});
+
+// GET /calendario - Calendario de audiencias (30 dias)
+audienciasRoutes.get('/calendario', async (c) => {
+  const user = c.get('user');
+
+  let query = `
+    SELECT a.id, a.tipo, a.data_hora, a.local, a.status,
+           cl.nome AS cliente_nome,
+           u.nome AS advogado_nome,
+           ca.numero_processo
+    FROM audiencias a
+    LEFT JOIN clientes cl ON cl.id = a.cliente_id
+    LEFT JOIN usuarios u ON u.id = a.advogado_id
+    LEFT JOIN casos ca ON ca.id = a.caso_id
+    WHERE a.status IN ('agendada', 'confirmada')
+      AND date(a.data_hora) BETWEEN date('now') AND date('now', '+30 days')
+  `;
+  const params: string[] = [];
+
+  if (user.role === 'advogado') {
+    query += ' AND a.advogado_id = ?';
+    params.push(user.sub);
+  }
+
+  query += ' ORDER BY a.data_hora ASC';
+
+  const result = await c.env.DB.prepare(query).bind(...params).all();
+
+  // Agrupar por data
+  const porData: Record<string, unknown[]> = {};
+  for (const row of result.results) {
+    const data = (row.data_hora as string).split('T')[0];
+    if (!porData[data]) porData[data] = [];
+    porData[data].push(row);
+  }
+
+  return c.json({
+    success: true,
+    data: porData,
+    meta: { total: result.results.length, dias_com_audiencia: Object.keys(porData).length },
+  });
+});
+
+// POST /pos-audiencia-manual - Executar follow-up pos-audiencia manualmente
+audienciasRoutes.post('/pos-audiencia-manual', async (c) => {
+  const user = c.get('user');
+  if (!['admin', 'coordenador'].includes(user.role)) {
+    return c.json({ success: false, error: 'Apenas admin/coordenador' }, 403);
+  }
+
+  const { processarPosAudiencia } = await import('./reminder');
+  const resultado = await processarPosAudiencia(c.env);
+  return c.json({ success: true, data: resultado });
+});
+
+// GET /dashboard - Dashboard resumido de audiencias
+audienciasRoutes.get('/dashboard', async (c) => {
+  const hoje = new Date().toISOString().split('T')[0];
+
+  const [hojeDados, semana, pendentes, semResultado] = await Promise.all([
+    c.env.DB.prepare(`
+      SELECT COUNT(*) as qtd FROM audiencias
+      WHERE status IN ('agendada', 'confirmada') AND date(data_hora) = ?
+    `).bind(hoje).first(),
+
+    c.env.DB.prepare(`
+      SELECT COUNT(*) as qtd FROM audiencias
+      WHERE status IN ('agendada', 'confirmada')
+        AND date(data_hora) BETWEEN date('now') AND date('now', '+7 days')
+    `).first(),
+
+    c.env.DB.prepare(`
+      SELECT COUNT(*) as qtd FROM audiencias
+      WHERE status IN ('agendada', 'confirmada')
+        AND (lembrete_d7_enviado = 0 OR lembrete_d3_enviado = 0 OR lembrete_d1_enviado = 0)
+        AND date(data_hora) BETWEEN date('now') AND date('now', '+8 days')
+    `).first(),
+
+    c.env.DB.prepare(`
+      SELECT COUNT(*) as qtd FROM audiencias
+      WHERE status IN ('agendada', 'confirmada')
+        AND date(data_hora) < date('now')
+        AND resultado IS NULL
+    `).first(),
+  ]);
+
+  return c.json({
+    success: true,
+    data: {
+      audiencias_hoje: hojeDados?.qtd || 0,
+      audiencias_semana: semana?.qtd || 0,
+      lembretes_pendentes: pendentes?.qtd || 0,
+      sem_resultado: semResultado?.qtd || 0,
+    },
+  });
+});

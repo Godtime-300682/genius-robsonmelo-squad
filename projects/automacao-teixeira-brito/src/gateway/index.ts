@@ -196,8 +196,15 @@ app.get('/cron/prazos-lembretes', async (c) => {
 });
 
 app.get('/cron/audiencias', async (c) => {
-  // Enviar lembretes de audiência (09:00)
-  return c.json({ success: true, message: 'Cron audiências executado' });
+  const { processarLembretesDiarios } = await import('../modules/audiencias/reminder');
+  const resultado = await processarLembretesDiarios(c.env);
+  return c.json({ success: true, data: resultado });
+});
+
+app.get('/cron/audiencias-pos', async (c) => {
+  const { processarPosAudiencia } = await import('../modules/audiencias/reminder');
+  const resultado = await processarPosAudiencia(c.env);
+  return c.json({ success: true, data: resultado });
 });
 
 app.get('/cron/cobrancas', async (c) => {
@@ -254,7 +261,15 @@ export default {
         console.log('Cron: Enviando lembretes de prazos e audiências...');
         const { enviarLembretesPrazos } = await import('../modules/prazos/scraper');
         const lembretes = await enviarLembretesPrazos(env);
-        console.log(`Cron lembretes: ${lembretes.enviados} enviados, ${lembretes.erros} erros`);
+        console.log(`Cron lembretes prazos: ${lembretes.enviados} enviados, ${lembretes.erros} erros`);
+
+        const { processarLembretesDiarios } = await import('../modules/audiencias/reminder');
+        const audLembretes = await processarLembretesDiarios(env);
+        console.log(`Cron audiências: ${audLembretes.audiencias_verificadas} verif, D7:${audLembretes.lembretes_d7} D3:${audLembretes.lembretes_d3} D1:${audLembretes.lembretes_d1}, ${audLembretes.erros.length} erros`);
+
+        const { processarPosAudiencia } = await import('../modules/audiencias/reminder');
+        const posAud = await processarPosAudiencia(env);
+        console.log(`Cron pós-audiência: ${posAud.audiencias_processadas} processadas, ${posAud.followups_enviados} follow-ups`);
         break;
       }
       case 13: { // 10h BR - Cobranças automáticas
