@@ -184,8 +184,15 @@ app.route('/webhook/whatsapp', (() => {
 // ============================================
 
 app.get('/cron/prazos', async (c) => {
-  // Verificar prazos do TJ (08:00)
-  return c.json({ success: true, message: 'Cron prazos executado' });
+  const { processarPublicacoesDiarias } = await import('../modules/prazos/scraper');
+  const resultado = await processarPublicacoesDiarias(c.env);
+  return c.json({ success: true, data: resultado });
+});
+
+app.get('/cron/prazos-lembretes', async (c) => {
+  const { enviarLembretesPrazos } = await import('../modules/prazos/scraper');
+  const resultado = await enviarLembretesPrazos(c.env);
+  return c.json({ success: true, data: resultado });
 });
 
 app.get('/cron/audiencias', async (c) => {
@@ -235,12 +242,20 @@ export default {
     const hour = new Date(event.scheduledTime).getUTCHours();
     // UTC-3 para Brasília: 8h BR = 11h UTC, 9h = 12h, 10h = 13h, 14h = 17h, 7h = 10h
     switch (hour) {
-      case 11: // 8h BR - Prazos TJ
-        console.log('Cron: Verificando prazos TJ...');
+      case 11: { // 8h BR - Scraping TJ + Classificação IA
+        console.log('Cron: Verificando publicações TJ-GO...');
+        const { processarPublicacoesDiarias } = await import('../modules/prazos/scraper');
+        const resultado = await processarPublicacoesDiarias(env);
+        console.log(`Cron prazos: ${resultado.publicacoes_encontradas} pub, ${resultado.intimacoes_classificadas} class, ${resultado.prazos_criados} prazos, ${resultado.erros.length} erros`);
         break;
-      case 12: // 9h BR - Audiências
-        console.log('Cron: Enviando lembretes de audiência...');
+      }
+      case 12: { // 9h BR - Lembretes de prazos + Audiências
+        console.log('Cron: Enviando lembretes de prazos e audiências...');
+        const { enviarLembretesPrazos } = await import('../modules/prazos/scraper');
+        const lembretes = await enviarLembretesPrazos(env);
+        console.log(`Cron lembretes: ${lembretes.enviados} enviados, ${lembretes.erros} erros`);
         break;
+      }
       case 13: // 10h BR - Cobranças
         console.log('Cron: Processando cobranças...');
         break;

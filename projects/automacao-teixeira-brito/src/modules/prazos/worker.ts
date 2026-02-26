@@ -153,3 +153,69 @@ prazosRoutes.patch('/:id/status', async (c) => {
 
   return c.json({ success: true, data: { id, status } });
 });
+
+// POST /calcular - Calcular prazos a partir de data de publicação
+prazosRoutes.post('/calcular', async (c) => {
+  const { calcularPrazos } = await import('./calculator');
+  const body = await c.req.json<{
+    data_publicacao: string;
+    tipo_intimacao: string;
+    prazo_dias?: number;
+  }>();
+
+  const resultado = calcularPrazos(body.data_publicacao, body.tipo_intimacao, body.prazo_dias);
+  return c.json({ success: true, data: resultado });
+});
+
+// POST /calcular-lote - Calcular múltiplos prazos
+prazosRoutes.post('/calcular-lote', async (c) => {
+  const { calcularPrazosLote } = await import('./calculator');
+  const body = await c.req.json<{
+    items: Array<{ dataPublicacao: string; tipo: string; prazo?: number }>;
+  }>();
+
+  const resultados = calcularPrazosLote(body.items);
+  return c.json({ success: true, data: resultados });
+});
+
+// GET /urgencia - Verificar urgência de todos os prazos ativos
+prazosRoutes.get('/urgencia', async (c) => {
+  const { verificarUrgenciaPrazo } = await import('./calculator');
+
+  const result = await c.env.DB.prepare(`
+    SELECT p.*, ca.numero_processo, cl.nome AS cliente_nome, u.nome AS responsavel_nome
+    FROM prazos p
+    LEFT JOIN casos ca ON ca.id = p.caso_id
+    LEFT JOIN clientes cl ON cl.id = ca.cliente_id
+    LEFT JOIN usuarios u ON u.id = p.responsavel_id
+    WHERE p.status IN ('pendente', 'em_andamento')
+    ORDER BY p.data_prazo ASC
+  `).all();
+
+  const prazosComUrgencia = result.results.map((p: Record<string, unknown>) => ({
+    ...p,
+    ...verificarUrgenciaPrazo(p.data_prazo as string),
+  }));
+
+  const resumo = {
+    vencidos: prazosComUrgencia.filter((p: { urgencia: string }) => p.urgencia === 'vencido').length,
+    criticos: prazosComUrgencia.filter((p: { urgencia: string }) => p.urgencia === 'critico').length,
+    urgentes: prazosComUrgencia.filter((p: { urgencia: string }) => p.urgencia === 'urgente').length,
+    atencao: prazosComUrgencia.filter((p: { urgencia: string }) => p.urgencia === 'atencao').length,
+    normais: prazosComUrgencia.filter((p: { urgencia: string }) => p.urgencia === 'normal').length,
+  };
+
+  return c.json({ success: true, data: prazosComUrgencia, meta: resumo });
+});
+
+// POST /scraping-manual - Executar scraping manual do TJ (admin/coordenador)
+prazosRoutes.post('/scraping-manual', async (c) => {
+  const user = c.get('user');
+  if (!['admin', 'coordenador'].includes(user.role)) {
+    return c.json({ success: false, error: 'Apenas admin/coordenador pode executar scraping manual' }, 403);
+  }
+
+  const { processarPublicacoesDiarias } = await import('./scraper');
+  const resultado = await processarPublicacoesDiarias(c.env);
+  return c.json({ success: true, data: resultado });
+});
