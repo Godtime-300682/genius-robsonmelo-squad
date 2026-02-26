@@ -158,11 +158,26 @@ app.route('/api/audiencias', audienciasRoutes);
 app.route('/api/documentos', documentosRoutes);
 app.route('/api/dashboard', dashboardRoutes);
 
-// Webhook WhatsApp (público - validado por apikey)
-app.post('/webhook/whatsapp', async (c) => {
-  // Redireciona para o módulo WhatsApp
-  return c.json({ success: true, message: 'Webhook recebido' });
-});
+// Webhook WhatsApp (público - validado por apikey dentro do módulo)
+app.route('/webhook/whatsapp', (() => {
+  const webhookApp = new Hono<HonoEnv>();
+  webhookApp.post('/', async (c) => {
+    // Importar e processar via chatbot
+    const { processarMensagem } = await import('../modules/whatsapp/chatbot');
+    const payload = await c.req.json();
+    if (payload.event !== 'messages.upsert') {
+      return c.json({ success: true, message: 'Evento ignorado' });
+    }
+    try {
+      const resultado = await processarMensagem(c.env, payload);
+      return c.json({ success: true, data: { tipo: resultado.tipo, escalado: resultado.escalado } });
+    } catch (e) {
+      console.error('Webhook WhatsApp error:', (e as Error).message);
+      return c.json({ success: false, error: 'Erro ao processar' }, 500);
+    }
+  });
+  return webhookApp;
+})());
 
 // ============================================
 // CRON TRIGGERS
