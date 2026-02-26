@@ -261,3 +261,113 @@ dashboardRoutes.get('/alertas', async (c) => {
     },
   });
 });
+
+// ============================================
+// NOVOS ENDPOINTS - FASE 8 (Dashboard Avançado)
+// ============================================
+
+// GET /kpis - KPIs completos do escritório
+dashboardRoutes.get('/kpis', async (c) => {
+  const { gerarKPIs } = await import('./analytics');
+  const kpis = await gerarKPIs(c.env);
+  return c.json({ success: true, data: kpis });
+});
+
+// GET /advogados - Relatório por advogado
+dashboardRoutes.get('/advogados', async (c) => {
+  const { relatorioPorAdvogado } = await import('./analytics');
+  const relatorio = await relatorioPorAdvogado(c.env);
+  return c.json({ success: true, data: relatorio });
+});
+
+// GET /financeiro - Relatório financeiro detalhado
+dashboardRoutes.get('/financeiro', async (c) => {
+  const { relatorioFinanceiro } = await import('./analytics');
+  const relatorio = await relatorioFinanceiro(c.env);
+  return c.json({ success: true, data: relatorio });
+});
+
+// GET /ia - Relatório de produtividade IA
+dashboardRoutes.get('/ia', async (c) => {
+  const { relatorioIA } = await import('./analytics');
+  const relatorio = await relatorioIA(c.env);
+  return c.json({ success: true, data: relatorio });
+});
+
+// GET /export/:tipo - Exportar relatório em CSV
+dashboardRoutes.get('/export/:tipo', async (c) => {
+  const tipo = c.req.param('tipo');
+  const { exportarRelatorio } = await import('./analytics');
+
+  const csv = await exportarRelatorio(c.env, tipo);
+
+  return new Response(csv, {
+    status: 200,
+    headers: {
+      'Content-Type': 'text/csv; charset=utf-8',
+      'Content-Disposition': `attachment; filename="relatorio-${tipo}-${new Date().toISOString().split('T')[0]}.csv"`,
+    },
+  });
+});
+
+// GET /resumo-diario - Resumo diário para coordenador
+dashboardRoutes.get('/resumo-diario', async (c) => {
+  const hoje = new Date().toISOString().split('T')[0];
+
+  const [prazosHoje, audienciasHoje, cobrancasHoje, leadsHoje, atendimentosHoje] = await Promise.all([
+    c.env.DB.prepare(`
+      SELECT COUNT(*) as total,
+        SUM(CASE WHEN status = 'vencido' THEN 1 ELSE 0 END) as vencidos
+      FROM prazos
+      WHERE data_prazo = ?
+    `).bind(hoje).first(),
+
+    c.env.DB.prepare(`
+      SELECT COUNT(*) as total FROM audiencias
+      WHERE status IN ('agendada','confirmada') AND date(data_hora) = ?
+    `).bind(hoje).first(),
+
+    c.env.DB.prepare(`
+      SELECT COUNT(*) as total, SUM(valor) as valor
+      FROM cobrancas
+      WHERE status = 'a_vencer' AND data_vencimento = ?
+    `).bind(hoje).first(),
+
+    c.env.DB.prepare(`
+      SELECT COUNT(*) as total FROM leads WHERE date(created_at) = ?
+    `).bind(hoje).first(),
+
+    c.env.DB.prepare(`
+      SELECT COUNT(*) as total,
+        SUM(CASE WHEN respondido_por = 'ia' THEN 1 ELSE 0 END) as ia,
+        SUM(CASE WHEN escalado = 1 THEN 1 ELSE 0 END) as escalados
+      FROM atendimentos WHERE date(created_at) = ?
+    `).bind(hoje).first(),
+  ]);
+
+  return c.json({
+    success: true,
+    data: {
+      data: hoje,
+      prazos: {
+        vencendo_hoje: (prazosHoje?.total as number) || 0,
+        vencidos: (prazosHoje?.vencidos as number) || 0,
+      },
+      audiencias: {
+        hoje: (audienciasHoje?.total as number) || 0,
+      },
+      cobrancas: {
+        vencendo_hoje: (cobrancasHoje?.total as number) || 0,
+        valor: (cobrancasHoje?.valor as number) || 0,
+      },
+      leads: {
+        novos_hoje: (leadsHoje?.total as number) || 0,
+      },
+      atendimentos: {
+        total: (atendimentosHoje?.total as number) || 0,
+        por_ia: (atendimentosHoje?.ia as number) || 0,
+        escalados: (atendimentosHoje?.escalados as number) || 0,
+      },
+    },
+  });
+});
